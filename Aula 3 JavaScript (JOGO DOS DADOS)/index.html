@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Dados</title>
+    <link rel="shortcut icon" href="/assets/img/contorno-do-cubo-de-dados.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/estilizacao.css">
+</head>
+<body>
+    
+<!-- h1, p, button, strong ou h3, 3 imgs, mensagem com tag p -->
+    <div class="topo">
+        <h1>Jogo de Dados</h1>
+    </div>
+    <div class="tabuleiro">
+        <p>Clique aqui para sortear os dados:</p>
+        <button onclick="sorteio();">Sortear</button>
+        <br><br>
+        <h3>Computador:</h3>
+        <div id="dadosCPU">
+            <img src="/assets/img/dado1.png">
+            <img src="/assets/img/dado4.png">
+            <img src="/assets/img/dado6.png">
+        </div>
+        <br><br>
+        <h3>Jogador:</h3>
+        <div id="dadosJogador">
+            <img src="/assets/img/dado5.png">
+            <img src="/assets/img/dado2.png">
+            <img src="/assets/img/dado3.png">
+        </div>
+        <br><br>
+        <p id="resultado">Aqui vai aparecer mensagem informando quem venceu.</p>
+    </div>
+
+    <script>
+        const dadosCPU = [];
+        const dadosJogador = [];
+
+        function sorteio(){
+            var totComp = 0;
+            var totJog = 0;
+            
+            for (let i = 0; i < 3; i++){
+                // Computador
+                dadosCPU[i] = Math.floor(Math.random() * 6 ) + 1;
+                totComp += dadosCPU[i];
+                // Jogador
+                dadosJogador[i] = Math.floor(Math.random() * 6 ) + 1;
+                totJog += dadosJogador[i];
+            }
+
+            document.getElementById("dadosCPU").innerHTML =
+            `<img src="/assets/img/dado${dadosCPU[0]}.png">
+             <img src="/assets/img/dado${dadosCPU[1]}.png">
+             <img src="/assets/img/dado${dadosCPU[2]}.png">`;
+
+            
+             document.getElementById("dadosJogador").innerHTML =
+            `<img src="/assets/img/dado${dadosJogador[0]}.png">
+             <img src="/assets/img/dado${dadosJogador[1]}.png">
+             <img src="/assets/img/dado${dadosJogador[2]}.png">`; 
+
+
+
+            var mensagem = "";
+            if (totComp > totJog) {
+                mensagem = "Computador venceu o Jogador ("+totComp+" a "+totJog+")";
+            } else {
+                if (totComp < totJog) {
+                    mensagem = "Jogador venceu o Computador ("+totJog+" a "+totComp+")";
+                } else {
+                    mensagem = "Jogador e Computador empataram ("+totJog+" a "+totComp+")";
+                }
+            }
+            document.getElementById("resultado").innerHTML = mensagem;
+
+        }
+
+
+    </script>
+</body>
+</html>
